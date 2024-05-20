@@ -12,8 +12,8 @@
     "db:push": "drizzle-kit push:sqlite",
     "db:studio": "drizzle-kit studio",
     "build": "npx tsc",
-    "dev": "node --env-file=.env --watch --loader ts-node/esm test.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node --env-file=.env --watch --loader ts-node/esm index.js",
+    "test": "node --env-file=.env --watch --loader ts-node/esm test.js"
   },
   "author": "Jason Lengstorf <jason@learnwithjason.dev>",
   "license": "ISC",

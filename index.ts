@@ -6,16 +6,20 @@ import { app } from "./drizzle.config.js";
 import { eq } from "drizzle-orm";
 
 const sqlite = new Database("./db/campus.db");
-const db: any = drizzle(sqlite);
+export const db: any = drizzle(sqlite);
 
 //Campus
 
 app.post("/addCampus", async (c) => {
   const newCampus = await c.req.json();
   const campus = await db.insert(campuses).values(newCampus);
-  return c.json({
-    msg: "Successfully Created!",
-  });
+  if (campus) {
+    return c.json({
+      msg: "Successfully Created!",
+    });
+  } else {
+    return c.json({ error: "Internal Server Error" });
+  }
 });
 
 app.get("/campuses", async (res) => {
@@ -45,7 +49,7 @@ app.put("/campuses", async (c) => {
 });
 
 app.delete("/campuses", async (c) => {
-  await db.delete(campuses).where(eq(campuses.name, "Campus 400"));
+  await db.delete(campuses).where(eq(campuses.name, "Campus 900"));
 
   return c.json({
     msg: "Campus deleted successfully!",
@@ -105,7 +109,7 @@ app.put("/building", async (building: any) => {
 
 app.delete("/building", async (building: any) => {
   try {
-    await db.delete(buildings).where(eq(buildings.buildingName, "C Block"));
+    await db.delete(buildings).where(eq(buildings.buildingName, "B Block"));
 
     return building.json({ msg: "Building deleted successfully" });
   } catch (error) {
